@@ -1,46 +1,4 @@
-name: Run Tests
-# The "when": trigger this workflow on pushes and pull requests to main 
-on:
-  push:
-     branches: [ main ]
-  pull_request:
-     branches: [ main ]
-# The "What": define the jobs to run
-jobs:
-  test:
-    # The "where": run this on Ubuntu
-    runs-on: ubuntu-latest
-    # The "how": define the steps
-    steps:
-    # This is a community action that checks out your code.
-      - name: checkout code
-        uses: actions/checkout@v3
 
-    # Another community action to set up Node js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version : '18'
-    # A simple command step
-      - name: Install dependencies
-        run: npm ci
-    # Another command step
-      - name: Run tests
-        run: npm test
-    # What if we want to test multiple node versions?
-  test-matrix :
-    runs-on : ubuntu-latest
-    strategy :
-      matrix : 
-        node-version:  [16,18,20]
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version : ${{matrix.node-version}}
-      - run: npm ci
-      - run: npm test
         
    
   
